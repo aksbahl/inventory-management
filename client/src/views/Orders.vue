@@ -8,6 +8,38 @@
     <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else>
+      <div v-if="submittedOrders.length > 0" class="submitted-section">
+        <h3 class="submitted-heading">Submitted Restocking Orders</h3>
+        <div class="table-container submitted-table-container">
+          <table class="submitted-table">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Items</th>
+                <th>Order Date</th>
+                <th>Exp. Delivery</th>
+                <th>Lead Time</th>
+                <th>Total Value</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="order in submittedOrders" :key="order.id">
+                <td><strong>{{ order.order_number }}</strong></td>
+                <td>{{ order.items.length }} items</td>
+                <td>{{ formatDate(order.order_date) }}</td>
+                <td>{{ formatDate(order.expected_delivery) }}</td>
+                <td>14 days</td>
+                <td><strong>{{ currencySymbol }}{{ order.total_value.toLocaleString() }}</strong></td>
+                <td>
+                  <span class="badge badge-submitted">Submitted</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="stats-grid">
         <div class="stat-card success">
           <div class="stat-label">{{ t('status.delivered') }}</div>
@@ -129,6 +161,10 @@ export default {
       loadOrders()
     })
 
+    const submittedOrders = computed(() =>
+      orders.value.filter(o => o.status === 'Submitted')
+    )
+
     const getOrdersByStatus = (status) => {
       return orders.value.filter(order => order.status === status)
     }
@@ -160,6 +196,7 @@ export default {
       loading,
       error,
       orders,
+      submittedOrders,
       getOrdersByStatus,
       getOrderStatusClass,
       formatDate,
@@ -172,6 +209,80 @@ export default {
 </script>
 
 <style scoped>
+/* Submitted Restocking Orders section */
+.submitted-section {
+  border-left: 3px solid #f59e0b;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.submitted-heading {
+  color: #f59e0b;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: 0.01em;
+}
+
+.submitted-table-container {
+  background: #1a1f2e;
+  border-radius: 8px;
+  border: 1px solid #2d3347;
+  overflow: auto;
+}
+
+.submitted-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.submitted-table thead tr {
+  background: transparent;
+}
+
+.submitted-table th {
+  padding: 0.625rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 1px solid #2d3347;
+  white-space: nowrap;
+}
+
+.submitted-table td {
+  padding: 0.75rem 1rem;
+  color: #cbd5e1;
+  border-bottom: 1px solid #1e2438;
+  white-space: nowrap;
+}
+
+.submitted-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.submitted-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.submitted-table strong {
+  color: #e2e8f0;
+}
+
+.badge-submitted {
+  background: rgba(245, 158, 11, 0.125);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
 /* Fixed table layout to prevent column shifting */
 .orders-table {
   table-layout: fixed;
