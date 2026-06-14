@@ -8,10 +8,12 @@ import Demand from './views/Demand.vue'
 import Spending from './views/Spending.vue'
 import Reports from './views/Reports.vue'
 import Restocking from './views/Restocking.vue'
+import About from './views/About.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    { path: '/about', component: About },
     { path: '/', component: Dashboard },
     { path: '/inventory', component: Inventory },
     { path: '/orders', component: Orders },

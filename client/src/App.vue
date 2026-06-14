@@ -15,6 +15,10 @@
       </div>
 
       <nav class="sidebar-nav">
+        <router-link to="/about" :class="{ active: $route.path === '/about' }" :title="t('nav.about')">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span class="nav-label">{{ t('nav.about') }}</span>
+        </router-link>
         <router-link to="/" :class="{ active: $route.path === '/' }" :title="t('nav.overview')">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
           <span class="nav-label">{{ t('nav.overview') }}</span>

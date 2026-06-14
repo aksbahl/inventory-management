@@ -1,6 +1,7 @@
 export default {
   // Navigation
   nav: {
+    about: 'アプリについて',
     overview: '概要',
     inventory: '在庫',
     orders: '注文',

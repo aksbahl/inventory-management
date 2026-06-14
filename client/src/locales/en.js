@@ -1,6 +1,7 @@
 export default {
   // Navigation
   nav: {
+    about: 'About',
     overview: 'Overview',
     inventory: 'Inventory',
     orders: 'Orders',

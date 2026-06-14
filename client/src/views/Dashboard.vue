@@ -13,17 +13,6 @@
         <div class="kpi-grid">
           <div class="kpi-card">
             <div class="kpi-header">
-              <span class="kpi-label">{{ t('dashboard.kpi.inventoryTurnover') }}</span>
-            </div>
-            <div class="kpi-value">4.2</div>
-            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 4.5 (-6.67%)</div>
-            <div class="kpi-progress-bar">
-              <div class="kpi-progress" style="width: 93.33%"></div>
-            </div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.ordersFulfilled') }}</span>
             </div>
             <div class="kpi-value">{{ ordersData.fulfilled }}</div>
@@ -52,6 +41,17 @@
             <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ formatCurrency(revenueGoal, selectedCurrency) }} ({{ summary.total_orders_value > revenueGoal ? '+' : '' }}{{ ((summary.total_orders_value / revenueGoal - 1) * 100).toFixed(1) }}%)</div>
             <div class="kpi-progress-bar">
               <div class="kpi-progress" :style="{ width: Math.min((summary.total_orders_value / revenueGoal * 100), 100) + '%' }"></div>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">{{ t('dashboard.kpi.inventoryTurnover') }}</span>
+            </div>
+            <div class="kpi-value">4.2</div>
+            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 4.5 (-6.67%)</div>
+            <div class="kpi-progress-bar">
+              <div class="kpi-progress" style="width: 93.33%"></div>
             </div>
           </div>
 
